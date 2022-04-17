@@ -60,6 +60,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    autoprefixer-rails (10.4.2.0)
+      execjs (~> 2)
     bindex (0.8.1)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
@@ -68,6 +70,7 @@ GEM
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     erubi (1.10.0)
+    execjs (2.8.1)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -178,6 +181,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  autoprefixer-rails
   bootsnap (>= 1.4.4)
   byebug
   jbuilder (~> 2.7)
