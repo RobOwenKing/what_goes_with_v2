@@ -31,6 +31,13 @@ gem 'autoprefixer-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # Load environment variables from .env into ENV in development
+  gem 'dotenv-rails'
+  # Add step-by-step debugging and stack navigation capabilities to pry using byebug
+  gem 'pry-byebug'
+  # Use pry as rails console insteaed of irb
+  gem 'pry-rails'
 end
 
 group :development do
