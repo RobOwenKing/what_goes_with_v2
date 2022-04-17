@@ -38,6 +38,8 @@ group :development, :test do
   gem 'pry-byebug'
   # Use pry as rails console insteaed of irb
   gem 'pry-rails'
+
+  gem 'rspec-rails'
 end
 
 group :development do
