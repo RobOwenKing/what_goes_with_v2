@@ -1,0 +1,14 @@
+/* Based on code from: https://every-layout.dev/layouts/stack/ */
+
+[class^='stack'] > * {
+  /* top and bottom margins in horizontal-tb writing mode */
+  margin-block: 0;
+}
+
+.stack-large > * + * {
+  margin-block-start: 3rem;
+}
+
+.stack-small > * + * {
+  margin-block-end: 0.5rem;
+}
