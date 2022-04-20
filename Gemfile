@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# User authentication
+gem 'devise'
+
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website
 gem 'autoprefixer-rails'
 
