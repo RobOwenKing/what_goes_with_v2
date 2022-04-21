@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'name' do
+    it { should validate_presence_of(:name) }
+  end
+  describe 'role' do
+    it 'should default to member'
+    it 'should ignore values as a param'
+  end
 end
