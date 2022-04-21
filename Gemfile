@@ -43,6 +43,9 @@ group :development, :test do
   gem 'pry-rails'
 
   gem 'rspec-rails'
+  # RSpec--compatible one-liners to test common functionality that otherwise would be much longer, more complex, and error-prone
+  # Docs: https://matchers.shoulda.io/docs/v5.1.0/
+  gem 'shoulda-matchers'
 end
 
 group :development do
