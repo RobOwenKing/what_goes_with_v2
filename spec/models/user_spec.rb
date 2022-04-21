@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
         password_confirmation: 'password123',
         name: 'Dentarthurdent'
       )
-      expect(user.role).to eq(1)
+      expect(user.role).to eq(0)
     end
     it 'should ignore values as a param' do
       user = User.create(
@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
         name: 'Dentarthurdent',
         role: 2
       )
-      expect(user.role).to eq(1)
+      expect(user.role).to eq(0)
     end
   end
 end
