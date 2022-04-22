@@ -19,5 +19,14 @@ RSpec.describe 'User account management', type: :system do
 
       expect(page).to have_content('You have signed up successfully.')
     end
+
+    scenario 'warns user of mistakes in form' do
+      fill_in 'Confirm password', with: 'OopsADaisy'
+      click_on 'Sign up'
+
+      expect(page).to have_content('Please provide a valid email')
+      expect(page).to have_content('Passwords must match')
+      expect(page).to have_content('Please provide a display name')
+    end
   end
 end

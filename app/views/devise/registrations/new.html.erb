@@ -7,7 +7,8 @@
     <%= f.input :email,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email" }%>
+                input_html: { autocomplete: "email" },
+                error: 'Please provide a valid email' %>
     <%= f.input :password,
                 required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
@@ -15,10 +16,12 @@
     <%= f.input :password_confirmation,
                 label: 'Confirm password',
                 required: true,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: "new-password" },
+                error: 'Passwords must match' %>
     <%= f.input :name,
                 label: "Display name",
-                required: true %>
+                required: true,
+                error: 'Please provide a display name' %>
   </div>
 
   <div class="form-actions">
