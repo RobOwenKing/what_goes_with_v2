@@ -14,15 +14,6 @@ RSpec.describe User, type: :model do
       )
       expect(user.role).to eq('member')
     end
-    it 'should ignore values as a param' do
-      user = User.create(
-        email: 'test@example.com',
-        password: 'password123',
-        password_confirmation: 'password123',
-        name: 'Dentarthurdent',
-        role: 'admin'
-      )
-      expect(user.role).to eq('member')
-    end
+    it 'should ignore values as a param'
   end
 end
