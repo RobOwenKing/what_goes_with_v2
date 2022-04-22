@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   private
 
-  def set_defaults
+  def set_default_role
     self.role ||= :member
   end
 end
