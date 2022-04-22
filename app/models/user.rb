@@ -5,4 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :name, presence: true
+
+  enum role: { member: 0, admin: 1 }
+
+  after_initialize :set_default_role, if: :new_record?
+
+  private
+
+  def set_defaults
+    self.role ||= :member
+  end
 end
