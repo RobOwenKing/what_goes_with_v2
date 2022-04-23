@@ -30,3 +30,33 @@ RSpec.describe 'User account management', type: :system do
     end
   end
 end
+
+RSpec.describe 'User authentication', type: :system do
+  before do
+    driven_by(:rack_test)
+  end
+
+  feature 'Sign in' do
+    before do
+      visit root_path
+
+      @user = User.create(
+        email: 'test@example.com',
+        password: 'password123',
+        password_confirmation: 'password123',
+        name: 'Dentarthurdent'
+      )
+    end
+
+    scenario 'works with valid details' do
+      click_on 'Sign in'
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+
+      click_on 'Sign in'
+
+      expect(page).to have_content('You have signed in successfully.')
+    end
+  end
+end
