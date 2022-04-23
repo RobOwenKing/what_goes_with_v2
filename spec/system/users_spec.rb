@@ -54,9 +54,11 @@ RSpec.describe 'User authentication', type: :system do
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
 
-      click_on 'Sign in'
+      click_on 'Log in'
 
-      expect(page).to have_content('You have signed in successfully.')
+      expect(page).to have_text('Signed in successfully')
+      expect(page).to have_link('Sign out')
+      expect(page).to have_no_link('Sign in')
     end
   end
 end
