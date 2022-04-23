@@ -13,7 +13,9 @@
   <body>
     <%= render "shared/navbar" %>
 
-    <%= yield %>
+    <main class="wrapper">
+      <%= yield %>
+    </main>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
