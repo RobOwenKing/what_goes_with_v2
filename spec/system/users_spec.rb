@@ -15,14 +15,14 @@ RSpec.describe 'User account management', type: :system do
       fill_in 'Confirm password', with: 'fakepassword'
       fill_in 'Password', with: 'fakepassword'
       fill_in 'Display name', with: 'Display me'
-      click_on 'Sign up'
+      click_on 'Submit'
 
       expect(page).to have_content('You have signed up successfully.')
     end
 
     scenario 'warns user of mistakes in form' do
       fill_in 'Confirm password', with: 'OopsADaisy'
-      click_on 'Sign up'
+      click_on 'Submit'
 
       expect(page).to have_content('Please provide a valid email')
       expect(page).to have_content('Passwords must match')
@@ -54,7 +54,7 @@ RSpec.describe 'User authentication', type: :system do
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
 
-      click_on 'Log in'
+      click_on 'Submit'
 
       expect(page).to have_text('Signed in successfully')
       expect(page).to have_link('Sign out')
