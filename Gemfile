@@ -27,6 +27,12 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website
 gem 'autoprefixer-rails'
+# User authentication
+# https://github.com/heartcombo/devise
+gem 'devise'
+# Rails forms made easy
+# https://github.com/heartcombo/simple_form
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -34,12 +40,23 @@ group :development, :test do
 
   # Load environment variables from .env into ENV in development
   gem 'dotenv-rails'
+
+  # DEBUGGING
+
   # Add step-by-step debugging and stack navigation capabilities to pry using byebug
   gem 'pry-byebug'
   # Use pry as rails console insteaed of irb
   gem 'pry-rails'
 
+  # TESTING
+
+  # Required to run system tests with rspec-rails
+  # Github: https://github.com/teamcapybara/capybara
+  gem 'capybara'
   gem 'rspec-rails'
+  # RSpec--compatible one-liners to test common functionality that otherwise would be much longer, more complex, and error-prone
+  # Docs: https://matchers.shoulda.io/docs/v5.1.0/
+  gem 'shoulda-matchers'
 end
 
 group :development do
