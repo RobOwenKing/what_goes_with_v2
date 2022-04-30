@@ -11,10 +11,12 @@ RSpec.describe 'User account management', type: :system do
     end
 
     scenario 'creates account with valid params' do
-      fill_in 'Email', with: 'fake@test.com'
-      fill_in 'Confirm password', with: 'fakepassword'
-      fill_in 'Password', with: 'fakepassword'
-      fill_in 'Display name', with: 'Display me'
+      @user = build(:user)
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Confirm password', with: @user.password
+      fill_in 'Password', with: @user.password
+      fill_in 'Display name', with: @user.name
       click_on 'Submit'
 
       expect(page).to have_content('You have signed up successfully.')
@@ -40,12 +42,7 @@ RSpec.describe 'User authentication', type: :system do
     before do
       visit root_path
 
-      @user = User.create(
-        email: 'test@example.com',
-        password: 'password123',
-        password_confirmation: 'password123',
-        name: 'Dentarthurdent'
-      )
+      @user = create(:user)
     end
 
     scenario 'works with valid details' do
