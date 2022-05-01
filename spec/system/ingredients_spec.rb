@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Creating an ingredient', type: :system do
   before do
     driven_by(:rack_test)
-    # @request.env["devise.mapping"] = Devise.mappings[:user]
 
     login_as(create(:user, { role: 'admin' }))
     @ingredient = create(:ingredient)
