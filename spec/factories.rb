@@ -5,6 +5,13 @@ FactoryBot.define do
     name { 'User McUserface' }
   end
 
+  factory :admin, class: 'User' do
+    email { 'admin@example.com' }
+    password { 'password_admin_1' }
+    name { 'Admin McAdminface' }
+    role { 'admin' }
+  end
+
   factory :ingredient do
     name { 'Hard cheese' }
     slug { 'hard-cheese' }
