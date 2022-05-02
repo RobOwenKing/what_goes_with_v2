@@ -1,5 +1,19 @@
 require 'rails_helper'
 
+RSpec.describe 'Viewing an ingredient', type: :system do
+  before do
+    driven_by(:rack_test)
+
+    @ingredient = create(:ingredient)
+  end
+
+  scenario 'has a pretty URL' do
+    visit "/ingredients/#{@ingredient.slug}"
+
+    expect(page).to have_content(@ingredient.name)
+  end
+end
+
 RSpec.describe 'Creating an ingredient', type: :system do
   before do
     driven_by(:rack_test)
