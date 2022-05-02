@@ -1,2 +1,10 @@
-<h1>Ingredients#new</h1>
-<p>Find me in app/views/ingredients/new.html.erb</p>
+<h1>Add Ingredient</h1>
+
+<%= simple_form_for(@ingredient) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :slug,
+              label: 'URL slug' %>
+  <%= f.input :aka %>
+  <%= f.input :eg %>
+  <%= f.button :submit, "Save" %>
+<% end %>

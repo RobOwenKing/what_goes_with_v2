@@ -5,7 +5,7 @@ RSpec.describe 'Creating an ingredient', type: :system do
     driven_by(:rack_test)
 
     login_as(create(:user, { role: 'admin' }))
-    @ingredient = create(:ingredient)
+    @ingredient = build(:ingredient)
 
     visit new_ingredient_path
   end
