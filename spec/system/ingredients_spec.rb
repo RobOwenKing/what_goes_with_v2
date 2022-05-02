@@ -5,7 +5,7 @@ RSpec.describe 'Ingredients', type: :system do
     driven_by(:rack_test)
   end
 
-  describe 'Viewing an ingredient' do
+  feature 'show' do
     before do
       @ingredient = create(:ingredient)
     end
@@ -17,7 +17,7 @@ RSpec.describe 'Ingredients', type: :system do
     end
   end
 
-  describe 'Creating an ingredient' do
+  context 'when admin' do
     before do
       login_as(create(:admin))
       @ingredient = build(:ingredient)
@@ -25,7 +25,7 @@ RSpec.describe 'Ingredients', type: :system do
       visit new_ingredient_path
     end
 
-    scenario 'it works with valid inputs' do
+    scenario 'create works with valid inputs' do
       fill_in 'Name', with: @ingredient.name
       fill_in 'URL slug', with: @ingredient.slug
       fill_in 'Aka', with: @ingredient.aka
@@ -34,13 +34,27 @@ RSpec.describe 'Ingredients', type: :system do
       click_on 'Save'
 
       expect(page).to have_content(@ingredient.name)
-      # Test for presence of "Add comment" to prove we're on an Ingredient show page
-      expect(page).to have_content('Add comment')
+      expect(page).to not_have_content('URL slug')
     end
 
-    scenario 'it fails with invalid inputs' do
+    scenario 'create fails with invalid inputs' do
       click_on 'Save'
       expect(page).to have_content("Name can't be blank")
     end
+  end
+
+  context 'when non-admin user' do
+    before do
+      login_as(create(:user))
+      @ingredient = build(:ingredient)
+    end
+
+    scenario 'new page is blocked' do
+      visit new_ingredient_path
+
+      expect(page).to not_have_content('URL slug')
+    end
+
+    scenario 'create fails with invalid inputs'
   end
 end
