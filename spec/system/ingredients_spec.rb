@@ -34,7 +34,7 @@ RSpec.describe 'Ingredients', type: :system do
       click_on 'Save'
 
       expect(page).to have_content(@ingredient.name)
-      expect(page).to not_have_content('URL slug')
+      expect(page).to_not have_content('URL slug')
     end
 
     scenario 'create fails with invalid inputs' do
@@ -52,7 +52,7 @@ RSpec.describe 'Ingredients', type: :system do
     scenario 'new page is blocked' do
       visit new_ingredient_path
 
-      expect(page).to not_have_content('URL slug')
+      expect(page).to_not have_content('URL slug')
     end
 
     scenario 'create fails with invalid inputs'
