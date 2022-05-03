@@ -1,0 +1,8 @@
+<%= simple_form_for(@ingredient) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :slug,
+              label: 'URL slug' %>
+  <%= f.input :aka %>
+  <%= f.input :eg %>
+  <%= f.button :submit, "Save" %>
+<% end %>
