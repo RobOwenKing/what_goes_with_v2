@@ -1,5 +1,5 @@
 class IngredientsController < ApplicationController
-  before_action :redirect_non_admins, only: %i[new create]
+  before_action :redirect_non_admins, except: %i[show]
   before_action :set_ingredient, only: %i[show edit update delete]
 
   def show
@@ -23,6 +23,11 @@ class IngredientsController < ApplicationController
   end
 
   def update
+    if @ingredient.update(ingredient_params)
+      redirect_to ingredient_path(@ingredient)
+    else
+      render :edit
+    end
   end
 
   def delete

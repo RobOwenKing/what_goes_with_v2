@@ -43,7 +43,7 @@ RSpec.describe 'Ingredients', type: :system do
     end
 
     scenario 'update works with valid inputs' do
-      @ingredient.save
+      @ingredient = create(:ingredient)
 
       visit edit_ingredient_path(@ingredient)
 
