@@ -1,8 +1,8 @@
 class IngredientsController < ApplicationController
   before_action :redirect_non_admins, only: %i[new create]
+  before_action :set_ingredient, only: %i[show edit update delete]
 
   def show
-    @ingredient = Ingredient.find(params[:id])
   end
 
   def new
@@ -36,5 +36,9 @@ class IngredientsController < ApplicationController
 
   def redirect_non_admins
     redirect_to root_path unless current_user.admin?
+  end
+
+  def set_ingredient
+    @ingredient = Ingredient.find(params[:id])
   end
 end
