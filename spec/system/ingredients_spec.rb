@@ -45,7 +45,9 @@ RSpec.describe 'Ingredients', type: :system do
 
   context 'when non-admin user' do
     before do
-      login_as(create(:user))
+      @user = create(:user)
+      login_as(@user)
+
       @ingredient = build(:ingredient)
     end
 
@@ -55,6 +57,10 @@ RSpec.describe 'Ingredients', type: :system do
       expect(page).to_not have_content('URL slug')
     end
 
-    scenario 'create fails with invalid inputs'
+    scenario 'posting to create does not work' do
+      post '/ingredients', params: { ingredient: @ingredient, user: @user }
+
+      visit "/ingredients/#{@ingredient.slug}"
+    end
   end
 end
