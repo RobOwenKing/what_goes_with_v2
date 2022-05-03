@@ -41,6 +41,19 @@ RSpec.describe 'Ingredients', type: :system do
       click_on 'Save'
       expect(page).to have_content("Name can't be blank")
     end
+
+    scenario 'update works with valid inputs' do
+      @ingredient.save
+
+      visit edit_ingredient_path(@ingredient)
+
+      fill_in 'Name', with: 'Chicken'
+      fill_in 'URL slug', with: 'chicken'
+      click_on 'Save'
+
+      visit '/ingredients/chicken'
+      expect(page).to have_content('Chicken')
+    end
   end
 
   context 'when non-admin user' do
@@ -61,6 +74,7 @@ RSpec.describe 'Ingredients', type: :system do
       post '/ingredients', params: { ingredient: @ingredient, user: @user }
 
       visit "/ingredients/#{@ingredient.slug}"
+      expect(page).to_not have_content(@ingredient.name)
     end
   end
 end
