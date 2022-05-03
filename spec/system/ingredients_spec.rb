@@ -39,11 +39,11 @@ RSpec.describe 'Ingredients', type: :system do
 
     scenario 'create fails with invalid inputs' do
       click_on 'Save'
-      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("can't be blank")
     end
 
     scenario 'update works with valid inputs' do
-      @ingredient = create(:ingredient)
+      @ingredient.save!
 
       visit edit_ingredient_path(@ingredient)
 
@@ -70,11 +70,11 @@ RSpec.describe 'Ingredients', type: :system do
       expect(page).to_not have_content('URL slug')
     end
 
-    scenario 'posting to create does not work' do
-      post '/ingredients', params: { ingredient: @ingredient, user: @user }
+    scenario 'edit page is blocked' do
+      @ingredient.save!
+      visit edit_ingredient_path(@ingredient)
 
-      visit "/ingredients/#{@ingredient.slug}"
-      expect(page).to_not have_content(@ingredient.name)
+      expect(page).to_not have_content('URL slug')
     end
   end
 end
