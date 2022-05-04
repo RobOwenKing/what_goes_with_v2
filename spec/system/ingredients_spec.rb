@@ -28,8 +28,8 @@ RSpec.describe 'Ingredients', type: :system do
     scenario 'create works with valid inputs' do
       fill_in 'Name', with: @ingredient.name
       fill_in 'URL slug', with: @ingredient.slug
-      fill_in 'Aka', with: @ingredient.aka
-      fill_in 'Eg', with: @ingredient.eg
+      fill_in 'Other names', with: @ingredient.aka
+      fill_in 'Examples', with: @ingredient.eg
 
       click_on 'Save'
 

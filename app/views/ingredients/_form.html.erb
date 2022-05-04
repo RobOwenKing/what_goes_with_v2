@@ -1,8 +1,20 @@
 <%= simple_form_for(@ingredient) do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name,
+              required: true %>
+  <p>One main name for display. Other names (also searchable) go below</p>
+
   <%= f.input :slug,
-              label: 'URL slug' %>
-  <%= f.input :aka %>
-  <%= f.input :eg %>
+              label: 'URL slug',
+              required: true %>
+  <p>Given a slug 'hard-cheese', the ingredient's URL will be '???.com/ingredients/hard-cheese'. Prefer dashes (-) over underscores (_)</p>
+
+  <%= f.input :aka,
+              label: 'Other names' %>
+  <p>Separate entries by commas. No need for 'or' or 'and'</p>
+
+  <%= f.input :eg,
+              label: 'Examples' %>
+  <p>Separate entries by commas. No need for 'or' or 'and'. This field could include specific cheeses within a category, common cuts of a meat, etc.</p>
+
   <%= f.button :submit, "Save" %>
 <% end %>
