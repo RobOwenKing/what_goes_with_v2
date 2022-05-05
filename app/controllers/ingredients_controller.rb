@@ -3,7 +3,12 @@ class IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[show edit update delete]
 
   def index
-    @ingredients = Ingredient.all
+    if params[:q].present?
+      sql_query = 'name ILIKE :query OR aka ILIKE :query OR eg ILIKE :query'
+      @ingredients = Ingredient.where(sql_query, query: "%#{params[:q]}%")
+    else
+      @ingredients = Ingredient.all
+    end
   end
 
   def show
