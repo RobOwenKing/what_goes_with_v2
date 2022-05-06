@@ -6,6 +6,8 @@ const searchResultsHandler = (data) => {
 
 
 const searchInputHandler = (event) => {
+  if (event.target.value.length < 1) { return; }
+
   Rails.ajax({
     type: 'GET',
     url: '/ingredients',
