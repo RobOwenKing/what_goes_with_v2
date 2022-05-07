@@ -1,11 +1,29 @@
 import Rails from "@rails/ujs";
 
+/**/
+const createResultsLI = (result) => {
+  const li = document.createElement('li');
+
+  li.textContent = result.name;
+
+  return li;
+};
+
 /**
   * Update autocomplete suggestions of ingredient links with given data
   * @param {JSON} data - Data from the server
 */
 const searchResultsHandler = (data) => {
   console.log(data);
+  const resultsUL = document.querySelector('[data-search-results]');
+
+  /* Delete and recreate everything. React-style selective updating will gain us little with so few elements */
+  resultsUL.innerHTML = '';
+
+  const fragment = document.createDocumentFragment();
+  data.forEach(result => fragment.appendChild(createResultsLI(result)));
+
+  resultsUL.appendChild(fragment);
 };
 
 /**
