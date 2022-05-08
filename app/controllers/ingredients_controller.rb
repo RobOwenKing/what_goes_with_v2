@@ -9,7 +9,7 @@ class IngredientsController < ApplicationController
 
       respond_to do |format|
         format.json { render json: @ingredients }
-        format.html
+        format.html # Fallback in case they have JS blocked
       end
     else
       @ingredients = Ingredient.all

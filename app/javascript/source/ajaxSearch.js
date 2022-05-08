@@ -2,11 +2,9 @@ import Rails from "@rails/ujs";
 
 /**/
 const createResultsLI = (result) => {
-  const li = document.createElement('li');
-
-  li.textContent = result.name;
-
-  return li;
+  return `<li>
+    <a href="/ingredients/${result.slug}.html">${result.name}</a>
+  </li>`;
 };
 
 /**
@@ -17,13 +15,9 @@ const searchResultsHandler = (data) => {
   console.log(data);
   const resultsUL = document.querySelector('[data-search-results]');
 
-  /* Delete and recreate everything. React-style selective updating will gain us little with so few elements */
-  resultsUL.innerHTML = '';
+  const newList = data.map(result => createResultsLI(result)).join('');
 
-  const fragment = document.createDocumentFragment();
-  data.forEach(result => fragment.appendChild(createResultsLI(result)));
-
-  resultsUL.appendChild(fragment);
+  resultsUL.innerHTML = newList;
 };
 
 /**
@@ -31,7 +25,7 @@ const searchResultsHandler = (data) => {
   * @param {InputEvent} event
 */
 const searchInputHandler = (event) => {
-  if (event.target.value.length < 1) { return; }
+  if (event.target.value.length < 1) { searchResultsHandler([]); }
 
   Rails.ajax({
     type: 'GET',
