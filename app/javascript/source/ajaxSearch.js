@@ -1,6 +1,10 @@
 import Rails from "@rails/ujs";
 
-/**/
+/**
+  * Return <li></li> to display for given search result
+  * @param {Object} result
+  * @returns {string}
+*/
 const createResultsLI = (result) => {
   return `<li>
     <a href="/ingredients/${result.slug}.html">${result.name}</a>
@@ -12,12 +16,10 @@ const createResultsLI = (result) => {
   * @param {JSON} data - Data from the server
 */
 const searchResultsHandler = (data) => {
-  console.log(data);
   const resultsUL = document.querySelector('[data-search-results]');
+  const resultsLIs = data.map(result => createResultsLI(result));
 
-  const newList = data.map(result => createResultsLI(result)).join('');
-
-  resultsUL.innerHTML = newList;
+  resultsUL.innerHTML = resultsLIs.join('');
 };
 
 /**
