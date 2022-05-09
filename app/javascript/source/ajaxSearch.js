@@ -1,6 +1,15 @@
 import Rails from "@rails/ujs";
 
 /**
+  * Sanitise all strings to be rendered into the HTML just in case
+  * @returns {string}
+*/
+const sanitiseString = (str) => {
+  // Delete everything that's not 0-9, A-Z, a-z, a space, a comma or a hyphen
+  return str.replace(/[^\w\s,-]/g, "");
+};
+
+/**
   * Return <li></li> to display for given search result
   * @param {Object} result
   * @returns {string}
@@ -27,6 +36,7 @@ const searchResultsHandler = (data) => {
   * @param {InputEvent} event
 */
 const searchInputHandler = (event) => {
+  // If the search term is the empty string, clear the results list
   if (event.target.value.length < 1) { searchResultsHandler([]); }
 
   Rails.ajax({
