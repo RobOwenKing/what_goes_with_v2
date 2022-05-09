@@ -16,7 +16,9 @@ const sanitiseString = (str) => {
 */
 const createResultsLI = (result) => {
   return `<li>
-    <a href="/ingredients/${result.slug}.html">${result.name}</a>
+    <a href="/ingredients/${result.slug}.html">
+      ${result.name}
+    </a>
   </li>`;
 };
 
@@ -36,13 +38,15 @@ const searchResultsHandler = (data) => {
   * @param {InputEvent} event
 */
 const searchInputHandler = (event) => {
+  const searchTerm = event.target.value;
+
   // If the search term is the empty string, clear the results list
-  if (event.target.value.length < 1) { searchResultsHandler([]); }
+  if (searchTerm.length < 1) { searchResultsHandler([]); }
 
   Rails.ajax({
     type: 'GET',
     url: '/ingredients',
-    data: `q=${event.target.value}`,
+    data: `q=${searchTerm}`,
     success: (data) => { searchResultsHandler(data); },
     failure: () => { return; }
   });
