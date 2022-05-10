@@ -9,12 +9,27 @@ const sanitiseString = (str) => {
   return str.replace(/[^\w\s,-]/g, "");
 };
 
+/**
+  * Returns the (sanitised) string with <mark> tags around any matches of regexp
+  * @param {string} str
+  * @param {RegExp} regexp
+  * @returns {string}
+*/
 const highlightMatch = (str, regexp) => {
   return sanitiseString(str).replace(regexp, '<mark>$&</mark>');
 };
 
+/**
+  * Returns the (sanitised) string in <p> tags with <mark> tags around any matches of regexp
+  * @param {string} str
+  * @param {RegExp} regexp
+  * @returns {string}
+*/
 const formatPotentialMatches = (str, regexp) => {
-  return str.match(regexp) ? `<p>${highlightMatch(str, regexp)}</p>` : '';
+  const splitStr = sanitiseString(str).split(', ');
+  const matches = splitStr.filter(ele => ele.match(regexp));
+
+  return matches.length > 0 ? `<p>${highlightMatch(matches.join(', '), regexp)}</p>` : '';
 };
 
 /**
