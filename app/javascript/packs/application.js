@@ -10,7 +10,7 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 
-import { initSearch } from "source/ajaxSearch";
+import { initSearch } from "scripts/ajaxSearch";
 
 document.addEventListener('turbolinks:load', () => {
   initSearch();
