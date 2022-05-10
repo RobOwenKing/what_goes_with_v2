@@ -12,7 +12,7 @@ const sanitiseString = (str) => {
 const highlightMatch = (str, searchTerm) => {
   const regex = new RegExp(searchTerm, 'gi')
 
-  return sanitiseString(str).replace(regex, '<em>$&</em>');
+  return sanitiseString(str).replace(regex, '<mark>$&</mark>');
 };
 
 /**
