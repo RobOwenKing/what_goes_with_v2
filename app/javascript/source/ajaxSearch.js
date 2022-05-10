@@ -9,16 +9,12 @@ const sanitiseString = (str) => {
   return str.replace(/[^\w\s,-]/g, "");
 };
 
-const highlightMatch = (str, searchTerm) => {
-  const regex = new RegExp(searchTerm, 'gi')
-
-  return sanitiseString(str).replace(regex, '<mark>$&</mark>');
+const highlightMatch = (str, regexp) => {
+  return sanitiseString(str).replace(regexp, '<mark>$&</mark>');
 };
 
-const formatPotentialMatches = (str, searchTerm) => {
-  const regex = new RegExp(searchTerm, 'i');
-
-  return str.match(regex) ? `<p>${highlightMatch(str, searchTerm)}</p>` : '';
+const formatPotentialMatches = (str, regexp) => {
+  return str.match(regexp) ? `<p>${highlightMatch(str, regexp)}</p>` : '';
 };
 
 /**
@@ -27,12 +23,14 @@ const formatPotentialMatches = (str, searchTerm) => {
   * @returns {string}
 */
 const createResultsLI = (result, searchTerm) => {
+  const regexp = new RegExp(searchTerm, 'gi');
+
   return `<li>
     <a href="/ingredients/${sanitiseString(result.slug)}.html">
-      ${highlightMatch(result.name, searchTerm)}
+      ${highlightMatch(result.name, regexp)}
     </a>
-    ${result.aka ? formatPotentialMatches(result.aka, searchTerm) : ''}
-    ${result.eg ? formatPotentialMatches(result.eg, searchTerm) : ''}
+    ${result.aka ? formatPotentialMatches(result.aka, regexp) : ''}
+    ${result.eg ? formatPotentialMatches(result.eg, regexp) : ''}
   </li>`;
 };
 
