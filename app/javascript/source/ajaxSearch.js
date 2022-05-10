@@ -9,15 +9,21 @@ const sanitiseString = (str) => {
   return str.replace(/[^\w\s,-]/g, "");
 };
 
+const highlightMatch = (str, searchTerm) => {
+  const regex = new RegExp(searchTerm, 'gi')
+
+  return sanitiseString(str).replace(regex, '<em>$&</em>');
+};
+
 /**
   * Return <li></li> to display for given search result
   * @param {Object} result
   * @returns {string}
 */
-const createResultsLI = (result) => {
+const createResultsLI = (result, searchTerm) => {
   return `<li>
     <a href="/ingredients/${result.slug}.html">
-      ${result.name}
+      ${highlightMatch(result.name, searchTerm)}
     </a>
   </li>`;
 };
@@ -25,10 +31,11 @@ const createResultsLI = (result) => {
 /**
   * Update autocomplete suggestions of ingredient links with given data
   * @param {JSON} data - Data from the server
+  * @param {string} searchTerm - The search value that returned the given data
 */
-const searchResultsHandler = (data) => {
+const searchResultsHandler = (data, searchTerm) => {
   const resultsUL = document.querySelector('[data-search-results]');
-  const resultsLIs = data.map(result => createResultsLI(result));
+  const resultsLIs = data.map(result => createResultsLI(result, searchTerm));
 
   resultsUL.innerHTML = resultsLIs.join('');
 };
@@ -41,13 +48,13 @@ const searchInputHandler = (event) => {
   const searchTerm = event.target.value;
 
   // If the search term is the empty string, clear the results list
-  if (searchTerm.length < 1) { searchResultsHandler([]); }
+  if (searchTerm.length < 1) { searchResultsHandler([], searchTerm); }
 
   Rails.ajax({
     type: 'GET',
     url: '/ingredients',
     data: `q=${searchTerm}`,
-    success: (data) => { searchResultsHandler(data); },
+    success: (data) => { searchResultsHandler(data, searchTerm); },
     failure: () => { return; }
   });
 };
