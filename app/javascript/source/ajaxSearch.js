@@ -15,6 +15,12 @@ const highlightMatch = (str, searchTerm) => {
   return sanitiseString(str).replace(regex, '<mark>$&</mark>');
 };
 
+const formatPotentialMatches = (str, searchTerm) => {
+  const regex = new RegExp(searchTerm, 'i');
+
+  return str.match(regex) ? `<p>${highlightMatch(str, searchTerm)}</p>` : '';
+};
+
 /**
   * Return <li></li> to display for given search result
   * @param {Object} result
@@ -22,9 +28,11 @@ const highlightMatch = (str, searchTerm) => {
 */
 const createResultsLI = (result, searchTerm) => {
   return `<li>
-    <a href="/ingredients/${result.slug}.html">
+    <a href="/ingredients/${sanitiseString(result.slug)}.html">
       ${highlightMatch(result.name, searchTerm)}
     </a>
+    ${result.aka ? formatPotentialMatches(result.aka, searchTerm) : ''}
+    ${result.eg ? formatPotentialMatches(result.eg, searchTerm) : ''}
   </li>`;
 };
 
