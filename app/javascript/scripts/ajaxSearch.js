@@ -1,5 +1,7 @@
 import Rails from "@rails/ujs";
 
+import { capitaliseFirstLetter } from '../helpers/capitaliseFirstLetter.js';
+
 /**
   * Sanitise all strings to be rendered into the HTML just in case
   * @returns {string}
@@ -28,8 +30,9 @@ const highlightMatch = (str, regexp) => {
 const formatPotentialMatches = (str, regexp) => {
   const splitStr = sanitiseString(str).split(', ');
   const matches = splitStr.filter(ele => ele.match(regexp));
+  const newStr = capitaliseFirstLetter(matches.join(', '));
 
-  return matches.length > 0 ? `<p>${highlightMatch(matches.join(', '), regexp)}</p>` : '';
+  return matches.length > 0 ? `<p>${highlightMatch(newStr, regexp)}</p>` : '';
 };
 
 /**
