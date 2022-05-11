@@ -56,7 +56,7 @@ const searchInputHandler = (event) => {
   const searchTerm = event.target.value;
 
   // If the search term is the empty string, clear the results list
-  if (searchTerm.length < 1) { searchResultsHandler([], searchTerm); }
+  if (searchTerm.length < 1) { return searchResultsHandler([], searchTerm); }
 
   Rails.ajax({
     type: 'GET',
@@ -67,6 +67,10 @@ const searchInputHandler = (event) => {
   });
 };
 
+/**
+  * Submits search via AJAX and calls function to update page if request successful
+  * @param {InputEvent} event
+*/
 const searchChangeHandler = (event) => {
   const value = event.target.value;
   const option = document.querySelector(`[value="${value}"]`);
