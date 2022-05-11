@@ -12,16 +12,6 @@ const sanitiseString = (str) => {
 };
 
 /**
-  * Returns the (sanitised) string with <mark> tags around any matches of regexp
-  * @param {string} str
-  * @param {RegExp} regexp
-  * @returns {string}
-*/
-const highlightMatch = (str, regexp) => {
-  return sanitiseString(str).replace(regexp, '<mark>$&</mark>');
-};
-
-/**
   * Returns the (sanitised) string in <p> tags with <mark> tags around any matches of regexp
   * @param {string} str
   * @param {RegExp} regexp
@@ -32,7 +22,7 @@ const formatPotentialMatches = (str, regexp) => {
   const matches = splitStr.filter(ele => ele.match(regexp));
   const newStr = capitaliseFirstLetter(matches.join(', '));
 
-  return matches.length > 0 ? `<p>${highlightMatch(newStr, regexp)}</p>` : '';
+  return matches.length > 0 ? `<p>${newStr}</p>` : '';
 };
 
 /**
@@ -43,13 +33,7 @@ const formatPotentialMatches = (str, regexp) => {
 const createResultsLI = (result, searchTerm) => {
   const regexp = new RegExp(searchTerm, 'gi');
 
-  return `<li>
-    <a href="/ingredients/${sanitiseString(result.slug)}.html">
-      ${highlightMatch(result.name, regexp)}
-    </a>
-    ${result.aka ? formatPotentialMatches(result.aka, regexp) : ''}
-    ${result.eg ? formatPotentialMatches(result.eg, regexp) : ''}
-  </li>`;
+  return `<option value=\"${sanitiseString(result.name)}\" data-slug=\"${sanitiseString(result.slug)}\" />`;
 };
 
 /**
@@ -58,7 +42,7 @@ const createResultsLI = (result, searchTerm) => {
   * @param {string} searchTerm - The search value that returned the given data
 */
 const searchResultsHandler = (data, searchTerm) => {
-  const resultsUL = document.querySelector('[data-search-results]');
+  const resultsUL = document.querySelector('datalist#search-results');
   const resultsLIs = data.map(result => createResultsLI(result, searchTerm));
 
   resultsUL.innerHTML = resultsLIs.join('');
@@ -83,12 +67,24 @@ const searchInputHandler = (event) => {
   });
 };
 
+const searchChangeHandler = (event) => {
+  const value = event.target.value;
+  const option = document.querySelector(`[value="${value}"]`);
+  const url = `/ingredients/${option.dataset.slug}.html`;
+
+  window.open(url, '_self');
+};
+
 /**
   * Attach input event listeners to all search boxes on the page for live updates
 */
 export const initSearch = () => {
-  document.querySelectorAll('[data-search="ingredients"]')
+  document.querySelectorAll('[list="search-results"]')
           .forEach(ele => {
             ele.addEventListener('input', searchInputHandler);
+          });
+  document.querySelectorAll('[list="search-results"]')
+          .forEach(ele => {
+            ele.addEventListener('change', searchChangeHandler);
           });
 };
