@@ -74,8 +74,10 @@ const searchInputHandler = (event) => {
 const searchChangeHandler = (event) => {
   const value = event.target.value;
   const option = document.querySelector(`[value="${value}"]`);
-  const url = `/ingredients/${option.dataset.slug}.html`;
 
+  if (!option) { return; }
+
+  const url = `/ingredients/${option.dataset.slug}.html`;
   window.open(url, '_self');
 };
 
