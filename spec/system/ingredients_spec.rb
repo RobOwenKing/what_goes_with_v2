@@ -34,6 +34,27 @@ RSpec.describe 'Ingredients', type: :system do
       click_on 'Search'
 
       expect(page).to have_content(@cheese.name)
+      expect(page).to_not have_content(@courgette.name)
+    end
+
+    scenario 'finds match in :aka' do
+      visit root_path
+
+      fill_in 'What goes with', with: 'zucc'
+      click_on 'Search'
+
+      expect(page).to_not have_content(@cheese.name)
+      expect(page).to have_content(@courgette.name)
+    end
+
+    scenario 'finds match in :eg' do
+      visit root_path
+
+      fill_in 'What goes with', with: 'parm'
+      click_on 'Search'
+
+      expect(page).to have_content(@cheese.name)
+      expect(page).to_not have_content(@courgette.name)
     end
   end
 
