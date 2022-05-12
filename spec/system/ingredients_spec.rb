@@ -21,6 +21,22 @@ RSpec.describe 'Ingredients', type: :system do
     driven_by(:rack_test)
   end
 
+  feature 'search' do
+    before do
+      @cheese = create(:ingredient)
+      @courgette = create(:ingredient, name: 'Courgette', slug: 'courgette', aka: 'Zucchini', eg: '')
+    end
+
+    scenario 'finds match in :name' do
+      visit root_path
+
+      fill_in 'What goes with', with: 'chee'
+      click_on 'Search'
+
+      expect(page).to have_content(@cheese.name)
+    end
+  end
+
   feature 'show' do
     before do
       @ingredient = create(:ingredient)

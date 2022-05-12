@@ -1,5 +1,5 @@
 class IngredientsController < ApplicationController
-  before_action :redirect_non_admins, except: %i[show]
+  before_action :redirect_non_admins, except: %i[index show]
   before_action :set_ingredient, only: %i[show edit update delete]
 
   def index

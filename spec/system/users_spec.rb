@@ -1,5 +1,14 @@
 require 'rails_helper'
 
+# CONTENTS
+# User account management
+#   Sign up
+#     creates account with valid params
+#     warns user of mistakes in form
+# User authentication
+#   Sign in
+#     works with valid details
+
 RSpec.describe 'User account management', type: :system do
   before do
     driven_by(:rack_test)
