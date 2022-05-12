@@ -12,28 +12,42 @@ const sanitiseString = (str) => {
 };
 
 /**
-  * Returns the (sanitised) string in <p> tags with <mark> tags around any matches of regexp
-  * @param {string} str
+  * Return the first term in the str that matches the regexp
+  * @param {str} string
   * @param {RegExp} regexp
   * @returns {string}
 */
-const formatPotentialMatches = (str, regexp) => {
-  const splitStr = sanitiseString(str).split(', ');
-  const matches = splitStr.filter(ele => ele.match(regexp));
-  const newStr = capitaliseFirstLetter(matches.join(', '));
-
-  return matches.length > 0 ? `<p>${newStr}</p>` : '';
+const findMatch = (str, regexp) => {
+  const match = sanitiseString(str).split(', ')
+                                   .find(ele => regexp.test(ele));
+  return capitaliseFirstLetter(match);
 };
 
 /**
-  * Return <li></li> to display for given search result
+  * Return the value to be used for the result's <option>
   * @param {Object} result
+  * @param {string} searchTerm - The search value that returned the given data
+  * @returns {string}
+*/
+const formatValue = (result, searchTerm) => {
+  const regexp = new RegExp(searchTerm, 'i');
+  const name = sanitiseString(result.name);
+
+  if (regexp.test(name)) { return name; }
+  // If there's a match in an alternative name, return that in () after the name
+  if (regexp.test(result.aka)) { return `${name} (${findMatch(result.aka, regexp)})`; }
+  // If there's a match in an example, return that in () after the name
+  if (regexp.test(result.eg)) { return `${name} (eg: ${findMatch(result.eg, regexp)})`; }
+};
+
+/**
+  * Return <option>s to display for given search result
+  * @param {Object} result
+  * @param {string} searchTerm - The search value that returned the given data
   * @returns {string}
 */
 const createResultsLI = (result, searchTerm) => {
-  const regexp = new RegExp(searchTerm, 'gi');
-
-  return `<option value=\"${sanitiseString(result.name)}\" data-slug=\"${sanitiseString(result.slug)}\" />`;
+  return `<option value=\"${formatValue(result, searchTerm)}\" data-slug=\"${sanitiseString(result.slug)}\" />`;
 };
 
 /**
@@ -49,7 +63,7 @@ const searchResultsHandler = (data, searchTerm) => {
 };
 
 /**
-  * Submits search via AJAX and calls function to update page if request successful
+  * Submit search via AJAX and call function to update page if request successful
   * @param {InputEvent} event
 */
 const searchInputHandler = (event) => {
@@ -68,7 +82,7 @@ const searchInputHandler = (event) => {
 };
 
 /**
-  * Submits search via AJAX and calls function to update page if request successful
+  * Navigate to selected ingredient's page
   * @param {InputEvent} event
 */
 const searchChangeHandler = (event) => {
@@ -82,7 +96,7 @@ const searchChangeHandler = (event) => {
 };
 
 /**
-  * Attach input event listeners to all search boxes on the page for live updates
+  * Attach input & change event listeners to all search boxes on the page for live updates
 */
 export const initSearch = () => {
   document.querySelectorAll('[list="search-results"]')
