@@ -1,5 +1,21 @@
 require 'rails_helper'
 
+# CONTENTS
+# Ingredients
+#   search
+#     finds matches in :name
+#     finds matches in :aka
+#     finds matches in :eg
+#   show
+#     has a pretty URL
+#   when admin
+#     create works with valid inputs
+#     create fails with invalid inputs
+#     update works with valid inputs
+#   when non-admin user
+#     new page is blocked
+#     edit page is blocked
+
 RSpec.describe 'Ingredients', type: :system do
   before do
     driven_by(:rack_test)
