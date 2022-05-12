@@ -86,11 +86,7 @@ const searchChangeHandler = (event) => {
 */
 export const initSearch = () => {
   document.querySelectorAll('[list="search-results"]')
-          .forEach(ele => {
-            ele.addEventListener('input', searchInputHandler);
-          });
+          .forEach(ele => { ele.addEventListener('input', searchInputHandler); });
   document.querySelectorAll('[list="search-results"]')
-          .forEach(ele => {
-            ele.addEventListener('change', searchChangeHandler);
-          });
+          .forEach(ele => { ele.addEventListener('change', searchChangeHandler); });
 };

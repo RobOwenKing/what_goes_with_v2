@@ -6,13 +6,14 @@ class IngredientsController < ApplicationController
     if params[:q].present?
       sql_query = 'name ILIKE :query OR aka ILIKE :query OR eg ILIKE :query'
       @ingredients = Ingredient.where(sql_query, query: "%#{params[:q]}%")
-
-      respond_to do |format|
-        format.json { render json: @ingredients }
-        format.html # Fallback in case they have JS blocked
-      end
+                               .order(:name)
     else
-      @ingredients = Ingredient.all
+      @ingredients = Ingredient.order(:name)
+    end
+
+    respond_to do |format|
+      format.json { render json: @ingredients }
+      format.html # Fallback in case they have JS blocked
     end
   end
 
