@@ -1,8 +1,61 @@
 require 'rails_helper'
 
+# CONTENTS
+# Ingredients
+#   search
+#     finds matches in :name
+#     finds matches in :aka
+#     finds matches in :eg
+#   show
+#     has a pretty URL
+#   when admin
+#     create works with valid inputs
+#     create fails with invalid inputs
+#     update works with valid inputs
+#   when non-admin user
+#     new page is blocked
+#     edit page is blocked
+
 RSpec.describe 'Ingredients', type: :system do
   before do
     driven_by(:rack_test)
+  end
+
+  feature 'search' do
+    before do
+      @cheese = create(:ingredient)
+      @courgette = create(:ingredient, name: 'Courgette', slug: 'courgette', aka: 'Zucchini', eg: '')
+    end
+
+    scenario 'finds match in :name' do
+      visit root_path
+
+      fill_in 'What goes with', with: 'chee'
+      click_on 'Search'
+
+      expect(page).to have_content(@cheese.name)
+      expect(page).to_not have_content(@courgette.name)
+    end
+
+    scenario 'finds match in :aka' do
+      visit root_path
+
+      fill_in 'What goes with', with: 'zucc'
+      click_on 'Search'
+
+      expect(page).to_not have_content(@cheese.name)
+      expect(page).to have_content(@courgette.name)
+    end
+
+    scenario 'finds match in :eg' do
+      visit root_path
+
+      fill_in 'What goes with', with: 'parm'
+      click_on 'Search'
+
+      expect(page).to have_content(@cheese.name)
+      expect(page).to_not have_content(@courgette.name)
+    end
   end
 
   feature 'show' do

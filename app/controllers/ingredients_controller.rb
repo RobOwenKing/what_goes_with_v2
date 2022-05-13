@@ -1,6 +1,21 @@
 class IngredientsController < ApplicationController
-  before_action :redirect_non_admins, except: %i[show]
+  before_action :redirect_non_admins, except: %i[index show]
   before_action :set_ingredient, only: %i[show edit update delete]
+
+  def index
+    if params[:q].present?
+      sql_query = 'name ILIKE :query OR aka ILIKE :query OR eg ILIKE :query'
+      @ingredients = Ingredient.where(sql_query, query: "%#{params[:q]}%")
+                               .order(:name)
+    else
+      @ingredients = Ingredient.order(:name)
+    end
+
+    respond_to do |format|
+      format.json { render json: @ingredients }
+      format.html # Fallback in case they have JS blocked
+    end
+  end
 
   def show
   end

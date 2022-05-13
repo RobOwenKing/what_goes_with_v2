@@ -1,1 +1,13 @@
-<h1 class="wrapper">What goes with...?</h1>
+<h1>What goes with...?</h1>
+
+<%= form_tag ingredients_path, method: :get, class: 'search' do %>
+  <%= label_tag 'q', 'What goes with' %>
+  <%= search_field_tag :q, params[:q],
+                     data: { search: 'ingredients' },
+                     autocomplete: 'off',
+                     list: 'search-results' %>
+  <%= submit_tag "Search" %>
+  <datalist id="search-results"></datalist>
+<% end %>
+
+<p>Test</p>

@@ -1,5 +1,17 @@
 <nav class="navbar | wrapper">
-  <div>&</div>
+  <% if current_page?(root_path) %>
+    <div></div>
+  <% else %>
+    <%= form_tag ingredients_path, method: :get, class: 'search' do %>
+      <%= label_tag 'q', 'What goes with' %>
+      <%= search_field_tag :q, params[:q],
+                         data: { search: 'ingredients' },
+                         autocomplete: 'off',
+                         list: 'search-results' %>
+      <%= submit_tag "Search" %>
+      <datalist id="search-results"></datalist>
+    <% end %>
+  <% end %>
   <div>
     <% if user_signed_in? %>
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "button" %>
