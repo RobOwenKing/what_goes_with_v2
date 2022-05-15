@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## To Do
+
+- Search
+  - pg_search https://github.com/Casecommons/pg_search
+  - Custom dropdown
