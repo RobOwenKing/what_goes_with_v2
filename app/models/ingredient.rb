@@ -5,13 +5,17 @@ class Ingredient < ApplicationRecord
   validates :name, :slug, presence: true
   validates :slug, uniqueness: true
 
-  def to_param
-    return nil unless persisted?
-
-    slug
+  def pairs
+    pair1s + pair2s
   end
 
   def self.find(input)
     input.to_i == input ? super : find_by_slug(input)
+  end
+
+  def to_param
+    return nil unless persisted?
+
+    slug
   end
 end
