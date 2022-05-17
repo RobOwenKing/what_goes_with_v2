@@ -1,4 +1,7 @@
 class Ingredient < ApplicationRecord
+  has_many :pair1s, class_name: 'Pair', foreign_key: 'ingredient1_id', dependent: :destroy
+  has_many :pair2s, class_name: 'Pair', foreign_key: 'ingredient2_id', dependent: :destroy
+
   validates :name, :slug, presence: true
   validates :slug, uniqueness: true
 
