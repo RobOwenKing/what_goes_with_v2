@@ -53,7 +53,7 @@ group :development, :test do
   # Required to run system tests with rspec-rails
   # Github: https://github.com/teamcapybara/capybara
   gem 'capybara'
-  # Github: https://github.com/thoughtbot/factory_bot_rails
+  # Github: https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   # RSpec--compatible one-liners to test common functionality that otherwise would be much longer, more complex, and error-prone
