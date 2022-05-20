@@ -2,6 +2,8 @@ class Pair < ApplicationRecord
   belongs_to :ingredient1, class_name: 'Ingredient'
   belongs_to :ingredient2, class_name: 'Ingredient'
 
+  has_many :comments, as: :commentable
+
   before_validation :alphabetise_ingredients, :create_slug
 
   validates :ingredient1, uniqueness: { scope: :ingredient2 }
