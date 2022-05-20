@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Ingredient, type: :model do
   describe 'associations' do
-    it { should have_many(:pairs) }
+    it { should have_many(:pair1s) }
+    it { should have_many(:pair2s) }
   end
 
   describe 'validations' do
