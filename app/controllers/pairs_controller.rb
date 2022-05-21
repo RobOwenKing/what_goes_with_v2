@@ -13,11 +13,11 @@ class PairsController < ApplicationController
   private
 
   def redirect_to_show_or_new
-    ingredients = [params[:ing1], params[:ing2]].sort
-    @pair = Pair.find("#{ingredients[0]}-#{ingredients[1]}")
+    @ingredients = [params[:ing1], params[:ing2]].sort
+    @pair = Pair.find("#{@ingredients[0]}-#{@ingredients[1]}")
 
-    redirect_to @pair and return if @pair
+    render 'show' and return if @pair
 
-    redirect_to action: 'new'
+    render 'new'
   end
 end
