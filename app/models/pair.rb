@@ -2,7 +2,7 @@ class Pair < ApplicationRecord
   belongs_to :ingredient1, class_name: 'Ingredient'
   belongs_to :ingredient2, class_name: 'Ingredient'
 
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   before_validation :alphabetise_ingredients, :create_slug
 
