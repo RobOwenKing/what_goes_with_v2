@@ -7,7 +7,7 @@
       <%= format_time(comment.created_at) %>
     </footer>
     <ul>
-      <%= render comment.comments %>
+      <%= render comment.comments.order(id: :asc) %>
     </ul>
   </article>
 </li>
