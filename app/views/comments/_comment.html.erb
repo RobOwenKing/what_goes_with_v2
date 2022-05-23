@@ -3,6 +3,6 @@
   <footer>
     by
     <%= comment.user.name %>,
-    <%= comment.created_at %>
+    <%= format_time(comment.created_at) %>
   </footer>
 </article>
