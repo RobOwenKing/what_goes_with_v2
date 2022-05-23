@@ -25,6 +25,7 @@ Things you may want to cover:
 
 ## To Do
 
+- Refactor authorisation (whitelist instead of blacklist)
 - Search
   - pg_search https://github.com/Casecommons/pg_search
   - Custom dropdown

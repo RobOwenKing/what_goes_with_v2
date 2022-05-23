@@ -1,8 +1,13 @@
-<article>
-  <%= comment.content %>
-  <footer>
-    by
-    <%= comment.user.name %>,
-    <%= format_time(comment.created_at) %>
-  </footer>
-</article>
+<li>
+  <article>
+    <%= comment.content %>
+    <footer>
+      by
+      <%= comment.user.name %>,
+      <%= format_time(comment.created_at) %>
+    </footer>
+    <ul>
+      <%= render comment.comments %>
+    </ul>
+  </article>
+</li>
