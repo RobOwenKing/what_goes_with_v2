@@ -1,3 +1,8 @@
 <article>
-  Test
+  <%= comment.content %>
+  <footer>
+    by
+    <%= comment.user.name %>,
+    <%= comment.created_at %>
+  </footer>
 </article>
