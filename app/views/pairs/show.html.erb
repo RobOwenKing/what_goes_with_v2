@@ -3,7 +3,7 @@
 
   <section>
     <ul>
-      <%= render @pair.comments.order(id: :asc) %>
+      <%= render @pair.comments.includes(:user).order(id: :asc) %>
     </ul>
   </section>
 </article>
