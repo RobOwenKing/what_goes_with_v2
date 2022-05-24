@@ -30,8 +30,10 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    if params[:comment][:comment]
-      @commentable = Comment.find(params[:comment][:comment])
+    if params[:comment][:comment_id]
+      @commentable = Comment.find(params[:comment][:comment_id])
+    elsif params[:comment][:pair_id]
+      @commentable = Pair.find(params[:comment][:pair_id].to_i)
     end
   end
 
