@@ -1,3 +1,14 @@
 <article>
   <%= render 'pair' %>
+
+  <section>
+    <%= simple_form_for :comment, url: comments_path do |f| %>
+      <%= f.hidden_field :ingredient1_id, value: @ingredient1.id %>
+      <%= f.hidden_field :ingredient2_id, value: @ingredient2.id %>
+
+      <%= f.text_area :content %>
+
+      <%= f.button :submit, "Submit" %>
+    <% end %>
+  </section>
 </article>

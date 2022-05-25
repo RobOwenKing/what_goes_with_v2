@@ -34,6 +34,11 @@ class CommentsController < ApplicationController
       @commentable = Comment.find(params[:comment][:comment_id])
     elsif params[:comment][:pair_id]
       @commentable = Pair.find(params[:comment][:pair_id].to_i)
+    elsif params[:comment][:ingredient1_id]
+      ingredient1 = Ingredient.find(params[:comment][:ingredient1_id].to_i)
+      ingredient2 = Ingredient.find(params[:comment][:ingredient2_id].to_i)
+
+      @commentable = Pair.create(ingredient1: ingredient1, ingredient2: ingredient2)
     end
   end
 
