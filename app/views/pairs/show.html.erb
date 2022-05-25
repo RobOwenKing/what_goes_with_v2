@@ -2,12 +2,10 @@
   <%= render 'pair' %>
 
   <section>
-    <%= simple_form_for :comment, url: comments_path do |f| %>
-      <%= f.hidden_field :pair_id, value: @pair.id %>
-
-      <%= f.text_area :content %>
-
-      <%= f.button :submit, "Submit" %>
+    <% if user_signed_in? %>
+        <%= render 'comments/new' do |f| %>
+          <%= f.hidden_field :pair_id, value: @pair.id %>
+        <% end %>
     <% end %>
 
     <ul>

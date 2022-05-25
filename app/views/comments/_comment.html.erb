@@ -11,12 +11,8 @@
     <% if user_signed_in? %>
       <details>
         <summary>Reply</summary>
-        <%= simple_form_for :comment, url: comments_path do |f| %>
+        <%= render 'comments/new' do |f| %>
           <%= f.hidden_field :comment_id, value: comment.id %>
-
-          <%= f.text_area :content %>
-
-          <%= f.button :submit, "Submit" %>
         <% end %>
       </details>
     <% end %>
