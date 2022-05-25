@@ -1,6 +1,8 @@
 class PairsController < ApplicationController
   def index
     redirect_to_show_or_new if params[:ing1]
+
+    @pairs = Pair.all
   end
 
   def show
