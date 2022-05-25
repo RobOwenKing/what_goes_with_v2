@@ -1,12 +1,10 @@
 class CommentsController < ApplicationController
-  before_action :set_commentable, only: :create
-
   def new
   end
 
   def create
     @comment = Comment.new(comment_params)
-    @comment.commentable = @commentable
+    @comment.commentable = set_commentable
     @comment.user = current_user
 
     if @comment.save
@@ -29,20 +27,24 @@ class CommentsController < ApplicationController
 
   private
 
-  def set_commentable
-    if params[:comment][:comment_id]
-      @commentable = Comment.find(params[:comment][:comment_id])
-    elsif params[:comment][:pair_id]
-      @commentable = Pair.find(params[:comment][:pair_id].to_i)
-    elsif params[:comment][:ingredient1_id]
-      ingredient1 = Ingredient.find(params[:comment][:ingredient1_id].to_i)
-      ingredient2 = Ingredient.find(params[:comment][:ingredient2_id].to_i)
-
-      @commentable = Pair.create(ingredient1: ingredient1, ingredient2: ingredient2)
-    end
-  end
-
   def comment_params
     params.require(:comment).permit(:content)
+  end
+
+  def create_pair
+    ingredient1 = Ingredient.find(params[:comment][:ingredient1_id].to_i)
+    ingredient2 = Ingredient.find(params[:comment][:ingredient2_id].to_i)
+
+    Pair.create(ingredient1: ingredient1, ingredient2: ingredient2)
+  end
+
+  def set_commentable
+    input = params[:comment]
+
+    return Comment.find(input[:comment_id]) if input[:comment_id]
+    return Pair.find(input[:pair_id].to_i) if input[:pair_id]
+    return create_pair if input[:ingredient1_id]
+
+    nil
   end
 end
