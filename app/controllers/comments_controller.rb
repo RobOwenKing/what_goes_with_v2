@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment.destroy if @comment.user == current_user
   end
 
   private
