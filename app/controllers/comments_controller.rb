@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
-  def new
-  end
+  before_action :set_comment, only: %i[update destroy]
 
   def create
     @comment = Comment.new(comment_params)
@@ -14,9 +13,6 @@ class CommentsController < ApplicationController
     end
 
     redirect_back(fallback_location: root_path)
-  end
-
-  def edit
   end
 
   def update
@@ -36,6 +32,10 @@ class CommentsController < ApplicationController
     ingredient2 = Ingredient.find(params[:comment][:ingredient2_id].to_i)
 
     Pair.create(ingredient1: ingredient1, ingredient2: ingredient2)
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 
   def set_commentable
