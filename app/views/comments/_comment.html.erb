@@ -1,23 +1,27 @@
 <li>
   <article>
-    <%= comment.content %>
+    <% if comment.content != 'Comment deleted' %>
+      <%= comment.content %>
 
-    <footer>
-      by
-      <%= comment.user.name %>,
-      <%= format_time(comment.created_at) %>
-      <% if comment.user == current_user %>
-        <%= link_to 'Delete', comment_path(comment), method: :delete %>
-      <% end %>
-    </footer>
-
-    <% if user_signed_in? %>
-      <details>
-        <summary>Reply</summary>
-        <%= render 'comments/new' do |f| %>
-          <%= f.hidden_field :comment_id, value: comment.id %>
+      <footer>
+        by
+        <%= comment.user.name %>,
+        <%= format_time(comment.created_at) %>
+        <% if comment.user == current_user %>
+          <%= link_to 'Delete', comment_path(comment), method: :delete %>
         <% end %>
-      </details>
+      </footer>
+
+      <% if user_signed_in? %>
+        <details>
+          <summary>Reply</summary>
+          <%= render 'comments/new' do |f| %>
+            <%= f.hidden_field :comment_id, value: comment.id %>
+          <% end %>
+        </details>
+      <% end %>
+    <% else %>
+      Comment deleted
     <% end %>
 
     <ul>

@@ -22,7 +22,8 @@ class CommentsController < ApplicationController
     return unless @comment.user == current_user
 
     if @comment.comments.present?
-      return
+      @comment.content = 'Comment deleted'
+      @comment.save
     else
       @comment.destroy
     end
