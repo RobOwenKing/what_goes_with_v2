@@ -1,0 +1,33 @@
+<li>
+  <article>
+    <% if comment.content != 'Comment deleted' %>
+      <%= comment.content %>
+
+      <footer>
+        by
+        <%= comment.user.name %>,
+        <%= format_time(comment.created_at) %>
+        <% if comment.user == current_user %>
+          <%= link_to 'Delete', comment_path(comment),
+                                method: :delete,
+                                data: { confirm: 'Are you sure you want to delete your comment? This cannot be undone.' } %>
+        <% end %>
+      </footer>
+
+      <% if user_signed_in? %>
+        <details>
+          <summary>Reply</summary>
+          <%= render 'comments/new' do |f| %>
+            <%= f.hidden_field :comment_id, value: comment.id %>
+          <% end %>
+        </details>
+      <% end %>
+    <% else %>
+      Comment deleted
+    <% end %>
+
+    <ul>
+      <%= render comment.comments.order(id: :asc) %>
+    </ul>
+  </article>
+</li>

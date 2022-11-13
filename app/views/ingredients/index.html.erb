@@ -5,3 +5,7 @@
     <li><%= i.name %></li>
   <% end %>
 </ul>
+
+<%= link_to "test", pairs_path(ing1: "cinnamon", ing2: "mint") %>
+<%= link_to "test", pairs_path(ing1: "mint", ing2: "cinnamon") %>
+<%= link_to "test", pairs_path(ing1: "cinnamon", ing2: "beef") %>

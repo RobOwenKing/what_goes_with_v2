@@ -1,1 +1,15 @@
-<h1><%= @pair.ingredient1.name %> & <%= @pair.ingredient2.name %></h1>
+<article>
+  <%= render 'pair' %>
+
+  <section>
+    <% if user_signed_in? %>
+        <%= render 'comments/new' do |f| %>
+          <%= f.hidden_field :pair_id, value: @pair.id %>
+        <% end %>
+    <% end %>
+
+    <ul>
+      <%= render @pair.comments.includes(:user).order(id: :asc) %>
+    </ul>
+  </section>
+</article>

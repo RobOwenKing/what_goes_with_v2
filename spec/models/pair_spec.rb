@@ -4,6 +4,8 @@ RSpec.describe Pair, type: :model do
   describe 'associations' do
     it { should belong_to(:ingredient1).class_name('Ingredient') }
     it { should belong_to(:ingredient2).class_name('Ingredient') }
+
+    it { should have_many(:comments) }
   end
 
   describe 'validations' do

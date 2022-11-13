@@ -1,2 +1,13 @@
-<h1>Pairs#new</h1>
-<p>Find me in app/views/pairs/new.html.erb</p>
+<article>
+  <%= render 'pair' %>
+
+  <section>
+    <% if user_signed_in? %>
+      <%= render 'comments/new' do |f| %>
+        <%= f.hidden_field :ingredient1_id, value: @ingredient1.id %>
+        <%= f.hidden_field :ingredient2_id, value: @ingredient2.id %>
+      <% end %>
+    <% end %>
+
+  </section>
+</article>

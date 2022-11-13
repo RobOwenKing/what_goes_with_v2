@@ -1,0 +1,9 @@
+<h1>Pairs</h1>
+
+<ul>
+  <% @pairs.each do |pair| %>
+    <li>
+      <%= link_to "#{pair.ingredient1.name} & #{pair.ingredient2.name}", pair_path(pair) %>
+    </li>
+  <% end %>
+</ul>
